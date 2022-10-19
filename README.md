@@ -1,0 +1,4 @@
+# LocalMemoryCacheForCSharp
+
+前段时间部门里一个业务要做数据的内存缓存，但是部门人员水平有限不愿意用redis，故手写了一个缓存类玩玩
+生产环境请勿使用，请使用redis或memCached，单纯是自己手痒写个抽象类玩玩
