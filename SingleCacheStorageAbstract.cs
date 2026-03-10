@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Collections.Concurrent;
 using System.Collections.Generic;
 using System.Configuration;
 using System.Linq;
@@ -30,9 +31,9 @@ namespace ProjectProcessService.utils.localCache
         /// 初始化kv数据集合的抽象方法
         /// </summary>
         /// <returns></returns>
-        protected abstract Dictionary<string, CacheNode<T>> Init();
+        protected abstract ConcurrentDictionary<string, CacheNode<T>> Init();
 
-        protected Dictionary<string, CacheNode<T>> DataSource { get; set; }
+        protected volatile ConcurrentDictionary<string, CacheNode<T>> DataSource;
 
         /// <summary>
         /// 从缓存获取，缓存查不到就穿透到库查，查出来再更新缓存并返回，查不出来返回null，如果开启缓存穿透则null也会被写进缓存
@@ -126,3 +127,4 @@ namespace ProjectProcessService.utils.localCache
     }
 
 }
+
