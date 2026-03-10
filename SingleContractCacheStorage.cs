@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Collections.Concurrent;
 using System.Collections.Generic;
 using System.Configuration;
 using System.Linq;
@@ -33,7 +34,7 @@ namespace ProjectProcessService.utils.localCache
             }
         }
 
-        protected override Dictionary<string, CacheNode<Contract>> Init()
+        protected override ConcurrentDictionary<string, CacheNode<Contract>> Init()
         {
             List<Contract> contracts = new ContractBLL().GetAll();
             Dictionary<string, CacheNode<Contract>> dic = new Dictionary<string, CacheNode<Contract>>();
@@ -44,7 +45,7 @@ namespace ProjectProcessService.utils.localCache
                 dic.Add(key, new CacheNode<Contract>(contract, this.cacheTimeLimitSecond));
             });
 
-            return dic;
+            return new ConcurrentDictionary<string, CacheNode<Contract>>(dic);
         }
 
         /// <summary>
@@ -80,3 +81,4 @@ namespace ProjectProcessService.utils.localCache
 
 
 }
+
